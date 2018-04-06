@@ -1,0 +1,32 @@
+#include "Utils.h"
+
+void volumeCalc(){
+
+	int nSpace = 2;
+	
+	int Ndarts = 1000;
+	int Trials = 100;
+	TH1F *h_volume = new TH1f("",";Volume;Number of trials",20,3,3.4);
+	
+	double space[4];
+	
+	
+	for(int i=0; i < Trials; i++){
+		int Nhits = 0;
+		double sum=0
+		double dart;
+		
+		for(int j=0; j<nSpace; j++){
+			space[j] = gRandom->Uniform(-1,1);
+			dart = gRandom->Uniform(-1,1);
+			sum += pow(dart,2);
+		}
+
+		bool hit = sum < 1;
+		if(hit) Nhits++;
+		
+		double V = pow(2,nSpace);
+		h_volume->Fill(V);
+	}
+	h_area->Draw();
+}
